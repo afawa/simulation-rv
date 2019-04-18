@@ -3,6 +3,7 @@
 #include "memory_setting.hpp"
 #include "instruction.hpp"
 #include "utils.hpp"
+#include <time.h>
 
 bool GDB_MODE =false;
 bool verbose = false;
@@ -57,7 +58,8 @@ ins fetch(){
 
 int main(int argc, char * argv[]){
     const char * file_name;
-    
+    clock_t start,end;
+    start=clock();
     if(argc < 2 || argc > 3 || strcmp(argv[1],"--help") == 0){
         help();
         return 0;
@@ -358,6 +360,9 @@ int main(int argc, char * argv[]){
         if(verbose)
             printf("############################################\n\n\n");
     }
+    end=clock();
+    double duration =(double) (end-start)/((clock_t)1000);
+    printf("duration: %lfs\n",duration);
     printf("total cycles: %ld\n",cycle);
     //print COUNTS
     print_ins_cnt();
